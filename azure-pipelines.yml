@@ -55,7 +55,7 @@ steps:
       foreach ($NewName in $Files)
       {
         echo $NewName
-        $UploadURL = "https://drive.deta.sh/v1/$env:UploadProjectKey/Uploads/files?name=$("/"+$FolderName+"/"+$($NewName.split('\')[5]))"
+        $UploadURL = "https://drive.deta.sh/v1/$env:UploadProjectKey/Uploads/files?name=$("/"+$FolderName+"/"+$($NewName.split('\')[7]))"
         Invoke-WebRequest -Uri $UploadURL -Headers $UploadHeaders -Infile $NewName -Method POST
       }
   env:

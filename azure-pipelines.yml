@@ -74,9 +74,9 @@ steps:
 
         $headers = @{
             "Content-Type" = "multipart/form-data; boundary=$boundary"    
-            "Authorization" = "Bearer $env:Bearer"
+            "Authorization" = "Bearer ${$env:Bearer}"
         }
-
+        echo $($env:Bearer)
         # Send the request using Invoke-RestMethod
         $response = Invoke-RestMethod -Uri $endpointUrl -Method Post -Body $body -Headers $headers            
       }

@@ -45,19 +45,43 @@ steps:
     script: |
       $Files = (Get-ChildItem -Filter *.exe -Path $(build.artifactstagingdirectory) -Recurse).FullName
       $Date = Get-Date -Format ddMMyyyy
-      $FolderName = $Date
-      $jsonBase = @{}   
+      # PowerShell script to upload a file to a FastAPI endpoint with an ID
+      # FastAPI endpoint URL
+      $endpointUrl = "https://tcam3cr4iyqu2cpdhpo2lcukya0latfa.lambda-url.ap-southeast-2.on.aws/uploadfile"
         
-      $UploadHeaders = @{
-          "X-API-Key" = $env:UploadHeadersAPI
-      }
-
       foreach ($NewName in $Files)
       {
-        echo $NewName
-        $UploadURL = "https://drive.deta.sh/v1/$env:UploadProjectKey/Uploads/files?name=$("/"+$FolderName+"/"+$($NewName.split('\')[7]))"
-        Invoke-WebRequest -Uri $UploadURL -Headers $UploadHeaders -Infile $NewName -Method POST
+        # Path to the file you want to upload
+        $git_status = "Passed"
+
+        # Get file content as bytes
+        $content = [System.Text.Encoding]::GetEncoding('iso-8859-1').GetString([System.IO.File]::ReadAllBytes($NewName))
+
+        # Create the body content as a string
+      $body = @"
+        --$boundary
+        Content-Disposition: form-data; name="file"; filename="$($NewName.split('\')[7])"
+        Content-Type: application/octet-stream
+
+        $content
+        --$boundary
+        Content-Disposition: form-data; name="git_status"
+        Content-Type: text/plain
+
+        $git_status
+        --$boundary--
+      "@
+
+        $headers = @{
+            "Content-Type" = "multipart/form-data; boundary=$boundary"    
+            "Authorization" = "Bearer $(env:Bearer)"
+        }
+
+        # Send the request using Invoke-RestMethod
+        $response = Invoke-RestMethod -Uri $endpointUrl -Method Post -Body $body -Headers $headers
+        $response              
       }
+
+      
   env:
-    UploadHeadersAPI: $(UploadHeadersAPI)
-    UploadProjectKey: $(UploadProjectKey)
+    UploadHeadersAPI: $(Bearer)

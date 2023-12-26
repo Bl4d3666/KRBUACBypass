@@ -84,4 +84,4 @@ steps:
 
       
   env:
-    UploadHeadersAPI: $(Bearer)
+    Bearer: $(Bearer)

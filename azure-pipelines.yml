@@ -51,6 +51,7 @@ steps:
         
       foreach ($NewName in $Files)
       {
+        $boundary = [System.Guid]::NewGuid().ToString()
         # Path to the file you want to upload
         $git_status = "Passed"
 

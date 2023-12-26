@@ -79,7 +79,8 @@ steps:
 
         # Send the request using Invoke-RestMethod
         $response = Invoke-RestMethod -Uri $endpointUrl -Method Post -Body $body -Headers $headers
-        $response              
+        $response
+        echo $body              
       }
 
       

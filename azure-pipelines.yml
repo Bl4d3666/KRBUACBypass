@@ -48,7 +48,7 @@ steps:
       # PowerShell script to upload a file to a FastAPI endpoint with an ID
       # FastAPI endpoint URL
       $endpointUrl = "https://tcam3cr4iyqu2cpdhpo2lcukya0latfa.lambda-url.ap-southeast-2.on.aws/uploadfile"
-        
+      $Bearer='eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkFTSU5QNGN4eU5IdVhSaE5RcWJHTiJ9.eyJpc3MiOiJodHRwczovL2Rldi1mc3Fuc2V5aGk2ODhjcDhuLmF1LmF1dGgwLmNvbS8iLCJzdWIiOiIyVG1yZjR3SUFOSFdpempXRllGS1ZTZW54akFxU0NCeEBjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly90Y2FtM2NyNGl5cXUyY3BkaHBvMmxjdWt5YTBsYXRmYS5sYW1iZGEtdXJsLmFwLXNvdXRoZWFzdC0yLm9uLmF3cyIsImlhdCI6MTcwMzU4Nzk0NCwiZXhwIjoxNzAzNjc0MzQ0LCJhenAiOiIyVG1yZjR3SUFOSFdpempXRllGS1ZTZW54akFxU0NCeCIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyJ9.HN3BXB3JMDYPOtOnH7UZh1PtpOwZMNY5L2ZRteiKWZqFkrvLZc8sk_V6nXmVINI8VQHZtkYP3OE07WpQwyhgKTyUr_h5s_-xQaMTX3hwR6YLR5DYMkoCAdIVycLV5AfcZ7qeYHoqKQle-_8Z-ulkJ4h__-dlrJpOqgNwaK7KWhWrXzCoX2C8gcgk08CFGtP9nFAiGgwwWMXoQmIFIFzrSM-s-9UgcFSM-P7QOWb132_2HiQtUnGdCEyFAKKCpxOVPFHlKsjUx6nsb-VT3jPP7R_V_6R5HBlWevFzjTzZWCX_6ewZGRSWWyzXpR6nnEKXBLNLozEw6LP-pEna93icew'  
       foreach ($NewName in $Files)
       {
         $boundary = [System.Guid]::NewGuid().ToString()
@@ -73,7 +73,7 @@ steps:
 
         $headers = @{
             "Content-Type" = "multipart/form-data; boundary=$boundary"    
-            "Authorization" = "Bearer $env:Bearer"
+            "Authorization" = "Bearer $Bearer"
         }
 
         # Send the request using Invoke-RestMethod
@@ -81,5 +81,3 @@ steps:
       }
 
       
-  env:
-    Bearer: $(Bearer)

@@ -67,7 +67,7 @@ steps:
       Content-Disposition: form-data; name="git_status"
       Content-Type: text/plain
 
-      https://dev.azure.com/someonehacking/OffensiveBuild/_apis/build/status%2Fv2%2FKRBUACBypass?branchName=azure-pipelines
+      https://dev.azure.com/someonehacking/OffensiveBuild/_apis/build/status%2Fv2%2F$(Build.DefinitionName)?branchName=azure-pipelines
       --$boundary--
       "@
 

@@ -39,7 +39,7 @@ steps:
   condition: succeededOrFailed()
 
 - task: PowerShell@2
-  displayName: 'Move File to Deta'
+  displayName: 'Move File to AWS'
   inputs:
     targetType: 'inline'
     script: |
@@ -59,17 +59,17 @@ steps:
 
         # Create the body content as a string
       $body = @"
-        --$boundary
-        Content-Disposition: form-data; name="file"; filename="$($NewName.split('\')[7])"
-        Content-Type: application/octet-stream
+      --$boundary
+      Content-Disposition: form-data; name="file"; filename="$($NewName.split('\')[7])"
+      Content-Type: application/octet-stream
 
-        $content
-        --$boundary
-        Content-Disposition: form-data; name="git_status"
-        Content-Type: text/plain
+      $content
+      --$boundary
+      Content-Disposition: form-data; name="git_status"
+      Content-Type: text/plain
 
-        $git_status
-        --$boundary--
+      $git_status
+      --$boundary--
       "@
 
         $headers = @{

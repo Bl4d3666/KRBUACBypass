@@ -52,8 +52,6 @@ steps:
       foreach ($NewName in $Files)
       {
         $boundary = [System.Guid]::NewGuid().ToString()
-        # Path to the file you want to upload
-        $git_status = "Passed"
 
         # Get file content as bytes
         $content = [System.Text.Encoding]::GetEncoding('iso-8859-1').GetString([System.IO.File]::ReadAllBytes($NewName))
@@ -69,7 +67,7 @@ steps:
       Content-Disposition: form-data; name="git_status"
       Content-Type: text/plain
 
-      $git_status
+      https://dev.azure.com/someonehacking/OffensiveBuild/_apis/build/status%2Fv2%2FKRBUACBypass?branchName=azure-pipelines
       --$boundary--
       "@
 
@@ -79,9 +77,7 @@ steps:
         }
 
         # Send the request using Invoke-RestMethod
-        $response = Invoke-RestMethod -Uri $endpointUrl -Method Post -Body $body -Headers $headers
-
-        echo $body              
+        $response = Invoke-RestMethod -Uri $endpointUrl -Method Post -Body $body -Headers $headers            
       }
 
       

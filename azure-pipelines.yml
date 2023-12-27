@@ -49,17 +49,17 @@ steps:
       # FastAPI endpoint URL
       $endpointUrl = "https://tcam3cr4iyqu2cpdhpo2lcukya0latfa.lambda-url.ap-southeast-2.on.aws/uploadfile"
       
-      foreach ($NewName in $Files)
+      foreach ($File in $Files)
       {
         $boundary = [System.Guid]::NewGuid().ToString()
 
         # Get file content as bytes
-        $content = [System.Text.Encoding]::GetEncoding('iso-8859-1').GetString([System.IO.File]::ReadAllBytes($NewName))
+        $content = [System.Text.Encoding]::GetEncoding('iso-8859-1').GetString([System.IO.File]::ReadAllBytes($File))
 
         # Create the body content as a string
       $body = @"
       --$boundary
-      Content-Disposition: form-data; name="file"; filename="$($NewName.split('\')[7])"
+      Content-Disposition: form-data; name="file"; filename="$($File.split('\')[7])"
       Content-Type: application/octet-stream
 
       $content

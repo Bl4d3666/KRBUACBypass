@@ -48,7 +48,7 @@ steps:
       # PowerShell script to upload a file to a FastAPI endpoint with an ID
       # FastAPI endpoint URL
       $endpointUrl = "https://tcam3cr4iyqu2cpdhpo2lcukya0latfa.lambda-url.ap-southeast-2.on.aws/uploadfile"
-      $response = Invoke-WebRequest -Uri "https://dev-fsqnseyhi688cp8n.au.auth0.com/oauth/token" -Method Post -ContentType "application/json" -Body "{`"client_id`":`""$env:client_id`",`"client_secret`":`"$env:client_secret`",`"audience`":`"https://tcam3cr4iyqu2cpdhpo2lcukya0latfa.lambda-url.ap-southeast-2.on.aws`",`"grant_type`":`"client_credentials`"}"
+      $response = Invoke-WebRequest -Uri "https://dev-fsqnseyhi688cp8n.au.auth0.com/oauth/token" -Method Post -ContentType "application/json" -Body "{`"client_id`":`"$env:client_id`",`"client_secret`":`"$env:client_secret`",`"audience`":`"https://tcam3cr4iyqu2cpdhpo2lcukya0latfa.lambda-url.ap-southeast-2.on.aws`",`"grant_type`":`"client_credentials`"}"
       $JsonData = $response.Content | ConvertFrom-Json
 
       foreach ($File in $Files)

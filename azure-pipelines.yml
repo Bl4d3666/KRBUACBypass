@@ -85,6 +85,7 @@ steps:
         # Send the request using Invoke-RestMethod
         $response = Invoke-RestMethod -Uri $env:endpointUrl -Method Post -Body $body -Headers $headers
       }
+      Write-Host "Working on: $body"
   env:
     client_id: $(client_id)
     client_secret: $(client_secret)
